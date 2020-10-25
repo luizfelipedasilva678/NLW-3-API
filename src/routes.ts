@@ -1,13 +1,14 @@
-import { Router } from 'express';
-import OrphanageController from './controllers/OrphanagesController';
+import { Router } from "express";
+import multer from "multer";
+
+import uploadConfig from "./config/upload";
+import OrphanagesController from "./controllers/OrphanagesController";
+
 const routes = Router();
+const upload = multer(uploadConfig);
 
-// MVC
-
-// Model
-// View
-// Controllers
-
-routes.post('/orphanages', OrphanageController.create);
+routes.get("/orphanages", OrphanagesController.index); // Listagem
+routes.get("/orphanages/:id", OrphanagesController.show); // Listar 1 único orfanato
+routes.post("/orphanages", upload.array("images"), OrphanagesController.create); // Criação
 
 export default routes;
